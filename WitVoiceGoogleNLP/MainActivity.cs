@@ -5,7 +5,7 @@ using Android.Content;
 using Android.Speech;
 using Wit.Communication.WitAiComm;
 
-namespace WitVoiceGoogleNLP
+namespace WitAiVoiceGoogleNLP
 {
     [Activity(Label = "WitVoiceGoogleNLP", MainLauncher = true, Icon = "@mipmap/icon")]
     public class MainActivity : Activity

@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("WitVoiceGoogleNLP.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("WitAiVoiceGoogleNLP.Resource", IsApplication=true)]
 
-namespace WitVoiceGoogleNLP
+namespace WitAiVoiceGoogleNLP
 {
 	
 	
