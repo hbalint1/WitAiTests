@@ -41,6 +41,28 @@ namespace WitAiVoiceTestWitNLP
 			}
 		}
 		
+		public partial class Id
+		{
+			
+			// aapt resource value: 0x7f040000
+			public const int btnRecord = 2130968576;
+			
+			// aapt resource value: 0x7f040002
+			public const int tvResult = 2130968578;
+			
+			// aapt resource value: 0x7f040001
+			public const int tvSearch = 2130968577;
+			
+			static Id()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Id()
+			{
+			}
+		}
+		
 		public partial class Layout
 		{
 			
@@ -62,6 +84,12 @@ namespace WitAiVoiceTestWitNLP
 			
 			// aapt resource value: 0x7f030000
 			public const int app_name = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int startRecording = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int stopRecording = 2130903042;
 			
 			static String()
 			{

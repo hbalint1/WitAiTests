@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WitAiVoiceTestWitNLP</string>
+  <string name="startRecording">Start recording</string>
+  <string name="stopRecording">Stop recording</string>
 </resources>

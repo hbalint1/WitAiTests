@@ -4,7 +4,7 @@
 
 using System;
 
-namespace WavCreator
+namespace WitAiVoiceTestWitNLP.Model
 {
     public static class WaveHeaderWriter
     {
