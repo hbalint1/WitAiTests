@@ -6,6 +6,7 @@ using Android.Media;
 using System.Threading.Tasks;
 using WitAiVoiceTestWitNLP.Model;
 using System.IO;
+using Wit.Communication.WitAiComm;
 
 namespace WitAiVoiceTestWitNLP
 {
@@ -16,10 +17,13 @@ namespace WitAiVoiceTestWitNLP
         private byte[] audioBuffer;
         private AudioRecord audRecorder;
         private string path = @"/sdcard/SendToWit.wav";
+        private ProgressDialog progress;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            progress = new ProgressDialog(this);
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
@@ -27,6 +31,8 @@ namespace WitAiVoiceTestWitNLP
             // Get our button from the layout resource,
             // and attach an event to it
             Button btnRecord = FindViewById<Button>(Resource.Id.btnRecord);
+            TextView tvSearch = FindViewById<TextView>(Resource.Id.tvSearch);
+            TextView tvResult = FindViewById<TextView>(Resource.Id.tvResult);
 
             audioBuffer = new byte[200000];
             InitializeAudioRecorder();
@@ -42,6 +48,14 @@ namespace WitAiVoiceTestWitNLP
                 else
                 {
                     btnRecord.Text = Resources.GetString(Resource.String.startRecording);
+                    byte[] d = await ReadWavFileAsync();
+                    progress.SetMessage("Plesase wait, processing request...");
+                    progress.SetCancelable(false);
+                    progress.Show();
+                    Request r = await WitAiComm.PostVoiceAsync(d);
+                    tvSearch.Text = r.Search;
+                    tvResult.Text = r.Result;
+                    progress.Hide();
                 }
             };
         }
@@ -86,15 +100,22 @@ namespace WitAiVoiceTestWitNLP
             }
         }
 
-        private void WriteWavFileAsync()
+        private async Task WriteWavFileAsync()
         {
             byte[] realData = audioBuffer;
 
             using (FileStream fs = new FileStream(path, FileMode.Create)) 
             {
                 WaveHeaderWriter.WriteHeader(fs, realData.Length, 1, 44100);
-                fs.Write(realData, 0, realData.Length);
+                await fs.WriteAsync(realData, 0, realData.Length);
             }
+        }
+
+        private async Task<byte[]> ReadWavFileAsync()
+        {
+            byte[] data = await Task.Run(() => File.ReadAllBytes(path));
+            
+            return data;
         }
     }
 }
