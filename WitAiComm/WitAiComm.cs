@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -30,23 +31,46 @@ namespace Wit.Communication.WitAiComm
         {
             Request response = new Request();
 
-            await Task.Run(() =>
+            try
             {
-                using (WebClient client = new WebClient())
-                {
-                    // Set up the header with the unique server access token.
-                    client.Headers.Add("Content-Type", "audio/wav");
-                    client.Headers[HttpRequestHeader.Authorization] = "Bearer " + _token;
 
-                    // Make a request to the wit.ai server.
-                    var result = client.UploadData(_voiceUri, data);
-                    var str = System.Text.Encoding.Default.GetString(result);
-                    WitAiResponse jsonResult = JsonConvert.DeserializeObject<WitAiResponse>(str);
-                    response = new Request { Search = jsonResult._text, Result = jsonResult.entities.intent.First().value };
-                }
-            });
+                await Task.Run(() =>
+                {
+                    using (WebClient client = new WebClient())
+                    {
+                        // Set up the header with the unique server access token.
+                        client.Headers.Add("Content-Type", "audio/wav");
+                            client.Headers[HttpRequestHeader.Authorization] = "Bearer " + _token;
+
+                        // Make a request to the wit.ai server.
+                        var result = client.UploadData(_voiceUri, data);
+                        var str = System.Text.Encoding.Default.GetString(result);
+                        WitAiResponse jsonResult = JsonConvert.DeserializeObject<WitAiResponse>(str);
+                        response = new Request
+                        {
+                            Search = jsonResult._text,
+                            Result = GetResultStringFromResponse(jsonResult)
+                        };
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+
+            }
 
             return response;
+        }
+
+        private static string GetResultStringFromResponse(WitAiResponse response)
+        {
+            string result = "";
+
+            result += "intent: " + response.entities?.intent?.First().value;
+            result += Environment.NewLine;
+            result += "on_off: " + response.entities?.on_off?.First().value;
+
+            return result;
         }
     }
 }

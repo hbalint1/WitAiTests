@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
-    <Compile Include="Model\WaveHeaderWriter.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -83,6 +82,10 @@
     <Folder Include="Resources\mipmap-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WavHandler\WavHandler.csproj">
+      <Project>{2964BE49-E5B2-45EF-8DBE-5C1113C867DD}</Project>
+      <Name>WavHandler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WitAiComm\WitAiComm.csproj">
       <Project>{2e0a0cf2-13cd-4e5a-b0b7-72008c65b6c5}</Project>
       <Name>WitAiComm</Name>

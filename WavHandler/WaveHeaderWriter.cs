@@ -4,7 +4,7 @@
 
 using System;
 
-namespace WitAiVoiceTestWitNLP.Model
+namespace Wit.VoiceTestWitNLP.Wav
 {
     public static class WaveHeaderWriter
     {
